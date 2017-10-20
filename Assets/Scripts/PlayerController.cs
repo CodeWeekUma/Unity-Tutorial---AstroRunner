@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask GroundLayer;
     public bool IsGrounded;
     private Animator _playerAnimator;
-    private GameManager _theGameManager;
     private AudioSource _lostLifeSound;
 
     private void Awake()
@@ -19,7 +18,6 @@ public class PlayerController : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _playerCollider = GetComponent<BoxCollider2D>();
         _playerAnimator = GetComponent<Animator>();
-        _theGameManager = FindObjectOfType<GameManager>();
         _lostLifeSound = GetComponents<AudioSource>()[1];
     }
 	
@@ -38,7 +36,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y < -6)
         {
             _lostLifeSound.Play();
-            _theGameManager.LifeLost();
+            GameManager.instance.LifeLost();
             transform.position = new Vector3(transform.position.x, 5, transform.position.z);
         }
     }

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     public GameObject[] Lives;
     public GameObject Player;
     private int _lives;
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         _lives = Lives.Length;
     }
 
@@ -35,6 +38,14 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+
+        foreach (var life in Lives)
+        {
+            life.SetActive(true);
+        }
+        _lives = Lives.Length;
+        FindObjectOfType<ScoreManager>().ResetScore();
+        EndPanel.SetActive(false);
+        Player.SetActive(true);
     }
 }

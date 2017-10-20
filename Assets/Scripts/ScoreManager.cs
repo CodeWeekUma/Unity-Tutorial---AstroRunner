@@ -13,4 +13,10 @@ public class ScoreManager : MonoBehaviour
         _score += scoreToAdd;
         ScoreText.text = _score.ToString();
     }
+
+    public void ResetScore()
+    {
+        _score = 0;
+        ScoreText.text = _score.ToString();
+    }
 }
